@@ -1,0 +1,345 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace, Arial, Helvetica, sans-serif;
+}
+
+.text-center {
+    text-align: center;
+}
+
+nav {
+    background-color: #f1f1f1;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#cabecalho {
+    width: 100%;
+}
+
+nav ul {
+    list-style: none;
+    margin-left: 20px;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+li a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+    font-size: 1.1rem;
+
+    &:hover {
+        color: #2b2b2b;
+    }
+}
+
+#info-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#btn-sair {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: red;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+
+    &:hover {
+        background-color: #960505;
+    }
+}
+
+#notificacao-estoque-baixo {
+    display: inline-block;
+    margin: 10px;
+}
+
+#btn-estoque-baixo {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#btn-estoque-baixo:hover {
+    background-color: #cc0000;
+}
+
+
+
+/* login */
+#login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#login form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 3px solid #5a5a5a;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+#login form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#login form button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+#login label {
+    font-weight: bold;
+}
+
+#login #botoes {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+#login #botoes button {
+    flex: 1;
+}
+
+/* inicio */
+#container-inicio {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding: 40px;
+}
+
+#titulo {
+    text-align: center;
+    padding: 10px;
+}
+
+#descricao {
+    text-align: center;
+    padding: 10px;
+    font-size: 1.3rem;
+    width: 75%;
+}
+
+#botoes-acao {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+/* card home */
+.btn-acao {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    color: black;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+#btn-novo {
+    background-color: green;
+
+    color: white;
+
+    &:hover {
+        background-color: #07a007;
+    }
+}
+
+#btn-ver {
+    background-color: blue;
+    color: white;
+
+    &:hover {
+        background-color: #060698;
+    }
+}
+
+#btn-baixo {
+    background-color: red;
+    color: white;
+    margin-top: 20px;
+
+    &:hover {
+        background-color: #960505;
+    }
+}
+
+#btn-historico {
+    background-color: rgb(250, 169, 19);
+    color: white;
+
+    &:hover {
+        background-color: #f08c04;
+    }
+}
+
+/* formulario produto */
+#main-cadastro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#form-cadastro {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 3px solid #5a5a5a;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+#form-cadastro input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#form-cadastro textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+#form-cadastro button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: green;
+    cursor: pointer;
+    color: white;
+
+    &:hover {
+        background-color: #07a007;
+    }
+}
+
+#form-cadastro label {
+    font-weight: bold;
+}
+
+#preco-quantidade {
+    display: flex;
+    gap: 10px;
+}
+
+#listar-produtos table {
+    width: 90%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+#listar-produtos th,
+#listar-produtos td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+#listar-produtos td {
+    &:hover {
+        background-color: rgb(223, 223, 223);
+    }
+}
+
+#listar-produtos th {
+    background-color: #343333;
+    border-top: 3px solid #343333;
+    color: white;
+}
+
+#listar-produtos button {
+    color: white;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+#tabela {
+    width: 90%;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+#tabela th,
+#tabela td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+#div-produto {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#btn-editar {
+    background-color: blue;
+
+    &:hover {
+        background-color: #060698;
+    }
+}
+
+#btn-excluir {
+    background-color: red;
+
+    &:hover {
+        background-color: #960505;
+    }
+}
+
+#btn-movimentar {
+    background-color: rgb(250, 169, 19);
+
+    &:hover {
+        background-color: #f08c04;
+    }
+}
