@@ -14,13 +14,15 @@
 <body>
     <main id="main-login">
         <section id="login">
+            <!-- Formulário de Login -->
             <form action="php/api/login.php" method="post" id="form-login">
-                <label for="nome">Nome:</label>
-                <input type="text" name="nome" id="nome" required>
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" required placeholder="Digite seu e-mail">
 
                 <label for="senha">Senha:</label>
-                <input type="password" name="senha" id="senha" required>
-                <div id="botoes">
+                <input type="password" name="senha" id="senha" required placeholder="Digite sua senha">
+                
+                <div class="container-botoes-form">
                     <button type="submit" style="background-color:green; color:white">Entrar</button>
                     <button type="reset" style="background-color:red; color:white">Limpar</button>
                 </div>
