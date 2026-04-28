@@ -81,6 +81,7 @@ $descricao_produto = $row["descricao_produto"];
             </div>
         </form>
     </main>
+    <?php include 'rodape.php'; ?>
 </body>
 
 </html>

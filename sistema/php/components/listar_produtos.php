@@ -100,6 +100,7 @@ if (isset($_SESSION["usuario"])) {
         </table>
     </main>
     <script src="../../js/script.js"></script>
+    <?php include 'rodape.php'; ?>
 </body>
 
 </html>

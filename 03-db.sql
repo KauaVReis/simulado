@@ -1,72 +1,91 @@
--- -----------------------------------------------------
--- Esquema do Banco de Dados: saep_db
--- Projeto: Sistema de Gestão de Estoque - Loja de Eletrônicos
--- -----------------------------------------------------
+    -- -----------------------------------------------------
+    -- Schema saep_db
+    -- -----------------------------------------------------
+    CREATE SCHEMA IF NOT EXISTS `saep_db` DEFAULT CHARACTER SET utf8 ;
+    USE `saep_db` ;
 
-CREATE DATABASE IF NOT EXISTS saep_db;
-USE saep_db;
+    -- -----------------------------------------------------
+    -- Table `saep_db`.`usuario`
+    -- -----------------------------------------------------
+    CREATE TABLE IF NOT EXISTS `saep_db`.`usuario` (
+    `id_usuario` INT(11) NOT NULL AUTO_INCREMENT,
+    `nome_usuario` VARCHAR(150) NOT NULL,
+    `senha_usuario` VARCHAR(255) NOT NULL,
+    `nivel_usuario` TINYINT(1) NULL DEFAULT NULL,
+    `senha_padrao` TINYINT(1) NULL DEFAULT 0,
+    `email_usuario` VARCHAR(101) NOT NULL,
+    PRIMARY KEY (`id_usuario`))
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8;
 
--- -----------------------------------------------------
--- Tabela: usuarios
--- Armazena os dados de autenticação e cargos dos colaboradores
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS usuarios (
-    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(150) NOT NULL,
-    email VARCHAR(150) NOT NULL UNIQUE,
-    senha VARCHAR(255) NOT NULL,
-    cargo ENUM('admin', 'vendedor', 'gerente') DEFAULT 'vendedor'
-) ENGINE=InnoDB;
+    -- -----------------------------------------------------
+    -- Table `saep_db`.`produtos`
+    -- -----------------------------------------------------
+    CREATE TABLE IF NOT EXISTS `saep_db`.`produtos` (
+    `id_produto` INT(11) NOT NULL AUTO_INCREMENT,
+    `nome_produto` VARCHAR(100) NOT NULL,
+    `marca_produto` VARCHAR(50) NOT NULL,
+    `qtd_produto` INT(11) NOT NULL,
+    `min_qtd_produto` INT(11) NOT NULL,
+    `fk_responsavel_cadastro` INT(11) NOT NULL,
+    `data_cadastro` DATETIME NOT NULL,
+    `descricao_produto` TEXT NULL DEFAULT NULL,
+    `preco_produto` DECIMAL(10,2) NULL DEFAULT NULL,
+    PRIMARY KEY (`id_produto`),
+    INDEX `fk_produtos_usuario_idx` (`fk_responsavel_cadastro` ASC),
+    CONSTRAINT `fk_produtos_usuario`
+        FOREIGN KEY (`fk_responsavel_cadastro`)
+        REFERENCES `saep_db`.`usuario` (`id_usuario`)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION)
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8;
 
--- -----------------------------------------------------
--- Tabela: produtos
--- Armazena o inventário de eletrônicos e limites de estoque
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS produtos (
-    id_produto INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(150) NOT NULL,
-    descricao TEXT,
-    preco DECIMAL(10, 2) NOT NULL,
-    estoque_minimo INT NOT NULL DEFAULT 5,
-    saldo_atual INT NOT NULL DEFAULT 0,
-    produto_tipo VARCHAR(50) NOT NULL
-) ENGINE=InnoDB;
+    -- -----------------------------------------------------
+    -- Table `saep_db`.`mov_produto`
+    -- -----------------------------------------------------
+    CREATE TABLE IF NOT EXISTS `saep_db`.`mov_produto` (
+    `id_movimentacao` INT(11) NOT NULL AUTO_INCREMENT,
+    `fk_produto` INT(11) NOT NULL,
+    `fk_responsavel` INT(11) NOT NULL,
+    `tipo_movimentacao` VARCHAR(100) NOT NULL,
+    `data_movimentacao` DATETIME NOT NULL,
+    `desc_movimentacao` VARCHAR(255) NULL DEFAULT NULL,
+    `quantidade_mov` INT(11) NOT NULL,
+    PRIMARY KEY (`id_movimentacao`),
+    INDEX `fk_mov_produto_produtos1_idx` (`fk_produto` ASC),
+    INDEX `fk_mov_produto_usuario1_idx` (`fk_responsavel` ASC),
+    CONSTRAINT `fk_mov_produto_produtos1`
+        FOREIGN KEY (`fk_produto`)
+        REFERENCES `saep_db`.`produtos` (`id_produto`)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT `fk_mov_produto_usuario1`
+        FOREIGN KEY (`fk_responsavel`)
+        REFERENCES `saep_db`.`usuario` (`id_usuario`)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION)
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8;
 
--- -----------------------------------------------------
--- Tabela: movimentacoes
--- Histórico de entradas e saídas de mercadorias
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS movimentacoes (
-    id_movimentacao INT AUTO_INCREMENT PRIMARY KEY,
-    id_produto INT NOT NULL,
-    id_usuario INT NOT NULL,
-    tipo ENUM('entrada', 'saida') NOT NULL,
-    quantidade INT NOT NULL,
-    data_movimentacao DATETIME DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_movimentacao_produto FOREIGN KEY (id_produto) 
-        REFERENCES produtos(id_produto) ON DELETE CASCADE,
-    CONSTRAINT fk_movimentacao_usuario FOREIGN KEY (id_usuario) 
-        REFERENCES usuarios(id_usuario) ON DELETE CASCADE
-) ENGINE=InnoDB;
+    -- -----------------------------------------------------
+    -- População inicial do banco (Mínimo 3 registros por tabela)
+    -- -----------------------------------------------------
 
--- -----------------------------------------------------
--- Carga Inicial de Dados (Seeds)
--- -----------------------------------------------------
+    -- Usuários (Senha padrão: senaisp)
+    INSERT INTO `saep_db`.`usuario` (nome_usuario, email_usuario, senha_usuario, nivel_usuario, senha_padrao) VALUES 
+    ('Administrador', 'admin@estoque.com', '$2y$10$.UH0mal4L3XnAmKxlLTsEOja7722c2DrudEbZ3DFogwo2/f.786.e', 1, 0),
+    ('Almoxarife João', 'joao@estoque.com', '$2y$10$.UH0mal4L3XnAmKxlLTsEOja7722c2DrudEbZ3DFogwo2/f.786.e', 2, 0),
+    ('Maria Silva', 'maria@estoque.com', '$2y$10$.UH0mal4L3XnAmKxlLTsEOja7722c2DrudEbZ3DFogwo2/f.786.e', 2, 0);
 
--- Inserção de Usuários
-INSERT INTO usuarios (nome, email, senha, cargo) VALUES 
-('Administrador Master', 'admin@loja.com', '123456', 'admin'),
-('Vendedor Silva', 'silva@loja.com', '654321', 'vendedor'),
-('Gerente Ana', 'ana@loja.com', 'admin123', 'gerente');
+    -- Produtos
+    INSERT INTO `saep_db`.`produtos` (nome_produto, marca_produto, qtd_produto, min_qtd_produto, fk_responsavel_cadastro, data_cadastro, descricao_produto, preco_produto) VALUES 
+    ('Smartphone Galaxy S23', 'Samsung', 15, 5, 1, NOW(), 'Smartphone Android com 256GB', 4500.00),
+    ('Notebook Dell Vostro', 'Dell', 8, 3, 1, NOW(), 'Notebook i7 16GB RAM', 5200.00),
+    ('Smart TV 55 pol', 'LG', 4, 2, 1, NOW(), 'Smart TV 4K OLED', 3800.00);
 
--- Inserção de Produtos Iniciais
-INSERT INTO produtos (nome, descricao, preco, estoque_minimo, saldo_atual, produto_tipo) VALUES 
-('Smartphone Galaxy S23', 'Samsung Galaxy S23 256GB Black', 4500.00, 10, 20, 'Celular'),
-('Notebook Dell Inspiron', 'Dell Inspiron 15 Intel Core i5 8GB 512GB SSD', 3800.00, 5, 8, 'Computador'),
-('Monitor LG 29 Ultrawide', 'Monitor LG 29 Polegadas Full HD IPS', 1200.00, 3, 15, 'Monitor');
-
--- Inserção de Movimentações de Exemplo
-INSERT INTO movimentacoes (id_produto, id_usuario, tipo, quantidade) VALUES 
-(1, 1, 'entrada', 20),
-(2, 3, 'entrada', 8),
-(3, 1, 'entrada', 15);
+    -- Movimentações
+    INSERT INTO `saep_db`.`mov_produto` (fk_produto, fk_responsavel, tipo_movimentacao, data_movimentacao, desc_movimentacao, quantidade_mov) VALUES 
+    (1, 1, 'entrada', NOW(), 'Compra de estoque inicial', 15),
+    (2, 2, 'entrada', NOW(), 'Entrada via nota fiscal 123', 8),
+    (3, 3, 'entrada', NOW(), 'Saldo inicial almoxarifado', 4);

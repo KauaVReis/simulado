@@ -58,6 +58,9 @@ $quantidade_produto = $row["qtd_produto"];
             <label for="quantidade_mov">Quantidade a movimentar:</label>
             <input type="number" name="quantidade_mov" id="quantidade_mov" step="1" min="1" required placeholder="Ex: 10">
             
+            <label for="data_mov">Data da Movimentação:</label>
+            <input type="datetime-local" name="data_mov" id="data_mov" required value="<?php echo date('Y-m-d\TH:i'); ?>">
+
             <label for="motivo_movimentacao">Motivo / Descrição da Movimentação:</label>
             <textarea name="motivo_movimentacao" id="motivo_movimentacao" cols="30" rows="5" required placeholder="Ex: Compra de mercadoria, Venda, Perda..."></textarea>
 
@@ -69,6 +72,7 @@ $quantidade_produto = $row["qtd_produto"];
             </div>
         </form>
     </main>
+    <?php include 'rodape.php'; ?>
 </body>
 
 </html>

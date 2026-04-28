@@ -74,6 +74,7 @@ if (isset($_SESSION["usuario"])) {
             </tbody>
         </table>
     </main>
+    <?php include 'rodape.php'; ?>
 </body>
 
 </html>

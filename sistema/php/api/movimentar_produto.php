@@ -8,9 +8,9 @@ $id_produto = $_POST["id_produto"];
 $tipo_mov = $_POST["tipo_mov"]; // 'entrada' ou 'saida'
 $quantidade_mov = $_POST["quantidade_mov"];
 $motivo_movimentacao = $_POST["motivo_movimentacao"];
+$data_hora = str_replace('T', ' ', $_POST["data_mov"]); // Formata para o MySQL
 
-// Captura data atual e ID do usuário responsável
-$data_hora = date("Y-m-d H:i:s");
+// Captura ID do usuário responsável
 $id_usuario = $_SESSION["id_usuario"];
 
 // Busca o produto no banco para verificar a quantidade atual

@@ -29,13 +29,11 @@ if (isset($_SESSION["usuario"])) {
         <form action="../api/reset_senha.php" method="POST" class="form-padrao">
             <label for="senha_nova">Nova Senha:</label>
             <input type="password" name="senha_nova" id="senha_nova" required placeholder="Digite sua nova senha">
-            
+
             <button type="submit">Atualizar Senha</button>
         </form>
     </main>
-    <?php
-    include 'rodape.php';
-    ?>
+    <?php include 'rodape.php'; ?>
 </body>
 
 </html>
